@@ -1,7 +1,7 @@
 # XMLParser
 A very simple java XMLParser in one single class!
 
-#EXAMPLES
+#EXAMPLES  
 ```java
 String xml =
                 "<import>" +
@@ -23,5 +23,6 @@ String xml =
         }
 ```
 
-#ISSUE
+
+# ISSUE  
 If you get any error while parsing file with this library, please create Issue topic, and paste used XML.
