@@ -1,6 +1,9 @@
 # XMLParser
 A very simple java XMLParser in one single class!
 
+# GOALS
+Simple and flexible parser for fast parse XML data from file or web. Dont worry about schema, data models, deserializers and other stuff. No other dependencies is needed.
+
 # EXAMPLES  
 ```java
 String xml =
