@@ -1,5 +1,5 @@
 # XMLParser
-A very simple java XMLParser in under 100 lines and in one single class!
+A very simple java XMLParser in one single class!
 
 #EXAMPLES
 ```java
@@ -22,3 +22,6 @@ String xml =
             e.printStackTrace();
         }
 ```
+
+#ISSUE
+If you get any error while parsing file with this library, please create Issue topic, and paste used XML.
