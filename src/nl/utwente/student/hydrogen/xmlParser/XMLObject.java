@@ -6,11 +6,32 @@ import java.util.List;
 import java.util.Map;
 
 public class XMLObject {
+	/**
+	 * Create XMLObject without throwing any exceptions
+	 * @param xml String contains xml data.
+	 * @return XMLObject with parsed data.
+	 */
+	public static XMLObject createSilent(String xml){
+		try {
+			XMLObject simpleXml = new XMLObject(xml);
+			return simpleXml;
+		} catch (Exception e) {
+			return new XMLObject();
+		}
+	}
+	
 	private List<XMLObject> children;
 	private Map<String, String> attributes;
 	private String name;
 	private String value;
 
+	/**
+	 * Empty constructor, only for internal usage.
+	 */
+	private XMLObject(){
+		
+	}
+	
 	public XMLObject(String xml) throws Exception {
 		xml = removeHeaderIfExist(xml);
 		xml = xml.trim();
@@ -62,16 +83,16 @@ public class XMLObject {
 					for (; i < value.length(); i++) {
 						if (value.charAt(i) == ' ' || value.charAt(i) == '<' )
 							isNameWriter = false;
-						else if (value.charAt(i) == '>' || value.charAt(i) == '/') {
+						else if (value.charAt(i) == '>' || (value.charAt(i) == '/' && isSpecialChar(i))) {
 							break;
 						}
 						if (isNameWriter)
 							nodeName += value.charAt(i);
 					}
-					if (value.charAt(i) == '/') {
+					if (value.charAt(i) == '/' && isSpecialChar(i)) { //shortest element 
 						children.add(new XMLObject(value.substring(position, i+2)));
 					} else {
-						String matchFilter = "</" + nodeName + ">";
+						String matchFilter = "</" + nodeName + ">"; //normal element
 						int endPos = value.substring(position).indexOf(matchFilter) + matchFilter.length() + position;
 						i = endPos;
 						children.add(new XMLObject(value.substring(position, i--)));
@@ -82,6 +103,18 @@ public class XMLObject {
 		// System.out.println(name + " : " + value);
 	}
 
+	private boolean isSpecialChar(int position){
+		if(value.charAt(position) == '/' && (position + 1 >= value.length() || value.charAt(position + 1) == '>')) return true;
+		if(value.charAt(position) == '>') return true;
+		if(value.charAt(position) == '"') return true;
+		if(value.charAt(position) == '&') return true;
+		if(value.charAt(position) == '\'') return true;
+		if(value.charAt(position) == '<') return true;
+		if(value.charAt(position) == '>') return true;
+		
+		return false;
+		
+	}
 	
 	/**
 	 * Check that is special char in XML, close element declaration:  > or />
@@ -128,4 +161,11 @@ public class XMLObject {
 		}
 	}
 
-}
+	@Override
+	public String toString() {
+		return "XMLObject [" + (children != null ? "children=" + children + ", " : "")
+				+ (attributes != null ? "attributes=" + attributes + ", " : "")
+				+ (name != null ? "name=" + name + ", " : "") + (value != null ? "value=" + value : "") + "]";
+	}
+
+	
