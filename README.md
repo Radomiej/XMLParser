@@ -1,7 +1,7 @@
 # XMLParser
 A very simple java XMLParser in one single class!
 
-#EXAMPLES  
+# EXAMPLES  
 ```java
 String xml =
                 "<import>" +
@@ -23,6 +23,11 @@ String xml =
         }
 ```
 
+# CHANELOG (SINCE FORK)
+* Improve parsing processor, more flexibly, less errors. 
+* Silent Contructor without throwing exceptions.
+* Support URL string with double-forwardslash --> **//**
+* Support whitespace in attributes values
 
 # ISSUE  
 If you get any error while parsing file with this library, please create Issue topic, and paste used XML.
