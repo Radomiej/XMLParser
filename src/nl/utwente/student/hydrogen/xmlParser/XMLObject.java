@@ -1,6 +1,8 @@
 package nl.utwente.student.hydrogen.xmlParser;
 
 
+package pl.fpsystem.tmobile.xml;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -67,7 +69,7 @@ public class XMLObject {
 						if(quoteCount == 0 && xml.charAt(i) == ' ' && i > startPosition && xml.charAt(i - 1) != xml.charAt(i)) break;
 						attributeValue += xml.charAt(i);
 					}
-					attributes.put(attributeName.trim(), attributeValue);
+					attributes.put(attributeName.trim(), attributeValue.trim());
 					attributeName = "";
 					attributeValue = "";
 				}
