@@ -1,9 +1,12 @@
 package nl.utwente.student.hydrogen.xmlParser;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.stream.events.Characters;
 
 public class XMLObject {
 	/**
@@ -52,10 +55,16 @@ public class XMLObject {
 					continue;
 				if (xml.charAt(i) == '=') {
 					int quoteCount = 0;
+					int startPosition = i + 1;
 					for (i = i + 1; quoteCount < 2 && isEndOfOpenElement(xml.charAt(i)) && i < xml.length(); i++) {
 						if (xml.charAt(i) == '"') {
 							quoteCount++;
 						}
+						
+						/**
+						 * Break reading value of attribute if string of value does not contains quotes, and space occurs after first letter.
+						 */
+						if(quoteCount == 0 && xml.charAt(i) == ' ' && i > startPosition && xml.charAt(i - 1) != xml.charAt(i)) break;
 						attributeValue += xml.charAt(i);
 					}
 					attributes.put(attributeName.trim(), attributeValue);
@@ -169,3 +178,4 @@ public class XMLObject {
 	}
 
 	
+}
