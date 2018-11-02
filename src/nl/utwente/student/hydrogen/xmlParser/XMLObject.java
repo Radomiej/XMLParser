@@ -1,8 +1,5 @@
 package nl.utwente.student.hydrogen.xmlParser;
 
-
-package pl.fpsystem.tmobile.xml;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
